@@ -6,14 +6,10 @@ fname = 'input1'
 fname = 'input'
 
 dataSet=File.readlines(fname)
-#puts dataSet.join.split(/\||\r?\n/).inspect
-#outStrings = dataSet.join.split(/^.+\| /).join.split(/\r?\n/).join(" ").split(" ")
 outStrings = dataSet.join.split(/^.+\| /).join.split(/\r?\n/)
 dataStrings =  dataSet.join.split(/ \|.+$/).join.split(/\r?\n/)
 finalNumbers=Array.new()
-#puts outStrings.length
-#puts dataStrings.length
-#puts "------"
+
 stringMap=Hash[]
 for i in 0..dataStrings.length-1 
   dataStrings[i].to_s.split().each do |subst|
@@ -59,26 +55,20 @@ for i in 0..dataStrings.length-1
     stringMap[k]=(v.to_s.scan /\w/).to_set
     #puts "#{k} --> #{v}"
   end
-  #puts stringMap.length
-  #puts stringMap.inspect
 
-  #puts outStrings[i]
   numString=""
   outStrings[i].split().each do |subs|
     arr=(subs.scan /\w/).to_set
-      #puts arr.inspect
       stringMap.each do |k,v|
-      #puts v.inspect
       if v==arr
-        #puts k
         numString+=k.to_s
      end
     end
   end
-  #puts numString
   finalNumbers.push(numString.to_i)
 end
 puts finalNumbers.sum
+
 #abcefg  = 0
 #cf      = 1
 #acdeg   = 2
@@ -88,12 +78,3 @@ puts finalNumbers.sum
 #abdefg  = 6
 #acf     = 7
 #abcdefg = 8
-#abcdfg  = 9
-#count=0
-#outStrings.each do |string|
-#  if string.length==2||string.length==4||string.length==3||string.length==7 #1,4,7,8
-#  puts string.length
-#    count+=1
-#  end
-#end
-#puts count
