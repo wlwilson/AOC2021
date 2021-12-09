@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
 
-fname = 'input'
 fname = 'input1'
+fname = 'input'
 
 def isLowSpot(arr,x,y)
   if x==0 && y==0
@@ -37,36 +37,48 @@ def isLowSpot(arr,x,y)
     arr[x][y]<arr[x-1][y] && arr[x][y]<arr[x+1][y] && arr[x][y]<arr[x][y-1] && arr[x][y]<arr[x][y+1]
   end
 end
-def basinArea(arr,x,y)
+def basinArea(arr,chk,x,y)
   if arr[x][y].to_i==9
-    puts "area is 0"
+    #puts "area is 0"
+    return 0
+  elsif chk[x][y]==1
+    #puts "already been here"
     return 0
   else
+    puts "checking new area #{x} #{y}"
+    chk[x][y]=1
     if x==0 && y==0
-      area=basinArea(arr,x+1,y)+basinArea(arr,x,y+1)
+      area=1+basinArea(arr,chk,x+1,y)+basinArea(arr,chk,x,y+1)
       puts "#{x} #{y} #{arr[x][y]}"
+    return area
     elsif x==arr.length-1 && y==arr[0].length-1
-      area=basinArea(arr,x-1,y)+basinArea(arr,x,y-1)
+      area=1+basinArea(arr,chk,x-1,y)+basinArea(arr,chk,x,y-1)
+    return area
     elsif x==0 && y==arr[0].length-1
-      area=basinArea(arr,x+1,y)+basinArea(arr,x,y-1)
+      area=1+basinArea(arr,chk,x+1,y)+basinArea(arr,chk,x,y-1)
+    return area
     elsif x==arr.length-1 && y==0
-      area=basinArea(arr,x-1,y)+basinArea(arr,x,y+1)
+      area=1+basinArea(arr,chk,x-1,y)+basinArea(arr,chk,x,y+1)
+    return area
     elsif x==0
-      area=basinArea(arr,x+1,y)+basinArea(arr,x,y-1)+basinArea(arr,x,y+1)
+      area=1+basinArea(arr,chk,x+1,y)+basinArea(arr,chk,x,y-1)+basinArea(arr,chk,x,y+1)
+    return area
     elsif y==0
-    puts "woohoo! x #{x} y #{y}"
-      area=basinArea(arr,x-1,y)+basinArea(arr,x+1,y)+basinArea(arr,x,y+1)
+      area=1+basinArea(arr,chk,x-1,y)+basinArea(arr,chk,x+1,y)+basinArea(arr,chk,x,y+1)
+    return area
     elsif x==arr.length-1 
-      area=basinArea(arr,x-1,y)+basinArea(arr,x,y-1)+basinArea(arr,x,y+1)
+      area=1+basinArea(arr,chk,x-1,y)+basinArea(arr,chk,x,y-1)+basinArea(arr,chk,x,y+1)
+    return area
     elsif y==arr[0].length-1 
-      area=basinArea(arr,x-1,y)+basinArea(arr,x+1,y)+basinArea(arr,x,y-1)
+      area=1+basinArea(arr,chk,x-1,y)+basinArea(arr,chk,x+1,y)+basinArea(arr,chk,x,y-1)
+    return area
     else
-      area=basinArea(arr,x-1,y)+basinArea(arr,x+1,y)+basinArea(arr,x,y-1)+basinArea(arr,x,y+1)
+      area=1+basinArea(arr,chk,x-1,y)+basinArea(arr,chk,x+1,y)+basinArea(arr,chk,x,y-1)+basinArea(arr,chk,x,y+1)
+    return area
     end
+    puts "did stuff, new area is #{area}"
     return area
   end
-  return area
-  puts area
 end
 dataSet=File.readlines(fname)
 #puts dataSet.inspect
@@ -80,19 +92,25 @@ for i in 0..floor.length-1
   end
 end
 risk=0
+checked = Array.new(floor.length) {Array.new(floor[0].length) {0} }
 maxBasin = [0,0,0]
+maxBas=0
+puts floor.inspect
+#puts basinArea(floor,checked,0,0)
 for i in 0..floor.length-1
   for j in 0..floor[0].length-1
     #if isLowSpot(floor,i,j)
     #  puts floor[i][j]
     #  risk=risk+floor[i][j]+1
     #end
-    puts basinArea(floor,i,j)
-    #if basinArea(floor,i,j) > maxBasin[0]
-    #  maxBasin.unshift(basinArea)
-    #end
+    newArea=basinArea(floor,checked,i,j)
+      maxBasin.push(newArea)
+      maxBasin=maxBasin.sort.reverse
+      maxBasin.pop
   end
 end
+puts "------"
 puts maxBasin.inspect
+puts maxBasin.reject(&:zero?).inject(:*)
 
 #floor=dataSet.join.split(/\||\r?\n/).inspect
