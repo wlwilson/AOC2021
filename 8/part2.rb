@@ -2,19 +2,21 @@
 
 require "set"
 
-fname = 'input'
 fname = 'input1'
+fname = 'input'
 
 dataSet=File.readlines(fname)
 #puts dataSet.join.split(/\||\r?\n/).inspect
 #outStrings = dataSet.join.split(/^.+\| /).join.split(/\r?\n/).join(" ").split(" ")
 outStrings = dataSet.join.split(/^.+\| /).join.split(/\r?\n/)
 dataStrings =  dataSet.join.split(/ \|.+$/).join.split(/\r?\n/)
-
-
+finalNumbers=Array.new()
+#puts outStrings.length
+#puts dataStrings.length
+#puts "------"
 stringMap=Hash[]
-for i in 0..dataStrings.length 
-  dataStrings[i].to_s.split() do |subst|
+for i in 0..dataStrings.length-1 
+  dataStrings[i].to_s.split().each do |subst|
     if subst.length == 2
       stringMap[1]=subst
     elsif subst.length == 4
@@ -25,7 +27,7 @@ for i in 0..dataStrings.length
       stringMap[8]=subst
     end
   end
-  dataStrings[i].to_s.split() do |subst|
+  dataStrings[i].to_s.split().each do |subst|
     #Length = 5, 2,3,5
     if subst.length == 5
       #1 is subset ->3
@@ -53,17 +55,30 @@ for i in 0..dataStrings.length
       end
     end
   end
-  puts stringMap.inspect
-  outStrings[i].to_s.split().each do |numString|
-    puts stringMap.keys.inspect
-    #for stringMap.keys do |ke|
-    #  #if (numString.scan /\w/).to_set==(stringMap[ke].scan /\w/).to_set
-    #  # puts ke
-    #  # end
-    #end
+  stringMap.each do |k,v|
+    stringMap[k]=(v.to_s.scan /\w/).to_set
+    #puts "#{k} --> #{v}"
   end
+  #puts stringMap.length
+  #puts stringMap.inspect
+
+  #puts outStrings[i]
+  numString=""
+  outStrings[i].split().each do |subs|
+    arr=(subs.scan /\w/).to_set
+      #puts arr.inspect
+      stringMap.each do |k,v|
+      #puts v.inspect
+      if v==arr
+        #puts k
+        numString+=k.to_s
+     end
+    end
+  end
+  #puts numString
+  finalNumbers.push(numString.to_i)
 end
-  
+puts finalNumbers.sum
 #abcefg  = 0
 #cf      = 1
 #acdeg   = 2
