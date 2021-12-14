@@ -1,0 +1,128 @@
+{"CH"=>"B", "HH"=>"N", "CB"=>"H", "NH"=>"C", "HB"=>"C", "HC"=>"B", "HN"=>"C", "NN"=>"C", "BH"=>"H", "NC"=>"B", "NB"=>"B", "BN"=>"B", "BB"=>"N", "BC"=>"B", "CC"=>"N", "CN"=>"C"}
+{"NN"=>1, "NC"=>1, "CB"=>1}
+{"N"=>2, "C"=>1, "B"=>1}
+
+checking pair NN
+incrementing counts[C]
+deleting pair NN
+new pairs
+["NC", "CN"]
+incrementing newPair - NC
+adding newPair - CN
+checking pair NC
+incrementing counts[B]
+new pairs
+["NB", "BC"]
+adding newPair - NB
+adding newPair - BC
+checking pair CB
+setting counts[H]=1
+deleting pair CB
+new pairs
+["CH", "HB"]
+adding newPair - CH
+adding newPair - HB
+iter 0
+{"NC"=>1, "CN"=>1, "NB"=>1, "BC"=>1, "CH"=>1, "HB"=>1}
+{"N"=>2, "C"=>2, "B"=>2, "H"=>1}
+checking pair NC
+incrementing counts[B]
+deleting pair NC
+new pairs
+["NB", "BC"]
+incrementing newPair - NB
+incrementing newPair - BC
+checking pair CN
+incrementing counts[C]
+deleting pair CN
+new pairs
+["CC", "CN"]
+adding newPair - CC
+adding newPair - CN
+checking pair NB
+incrementing counts[B]
+new pairs
+["NB", "BB"]
+incrementing newPair - NB
+adding newPair - BB
+checking pair BC
+incrementing counts[B]
+new pairs
+["BB", "BC"]
+incrementing newPair - BB
+incrementing newPair - BC
+checking pair CH
+incrementing counts[B]
+deleting pair CH
+new pairs
+["CB", "BH"]
+adding newPair - CB
+adding newPair - BH
+checking pair HB
+incrementing counts[C]
+deleting pair HB
+new pairs
+["HC", "CB"]
+adding newPair - HC
+incrementing newPair - CB
+iter 1
+{"NB"=>2, "BC"=>2, "CC"=>1, "CN"=>1, "BB"=>2, "CB"=>2, "BH"=>1, "HC"=>1}
+{"N"=>2, "C"=>4, "B"=>6, "H"=>1}
+checking pair NB
+incrementing counts[B]
+new pairs
+["NB", "BB"]
+incrementing newPair - NB
+incrementing newPair - BB
+checking pair BC
+incrementing counts[B]
+new pairs
+["BB", "BC"]
+incrementing newPair - BB
+incrementing newPair - BC
+checking pair CC
+incrementing counts[N]
+deleting pair CC
+new pairs
+["CN", "NC"]
+incrementing newPair - CN
+adding newPair - NC
+checking pair CN
+incrementing counts[C]
+new pairs
+["CC", "CN"]
+adding newPair - CC
+incrementing newPair - CN
+checking pair BB
+incrementing counts[N]
+new pairs
+["BN", "NB"]
+adding newPair - BN
+incrementing newPair - NB
+checking pair CB
+incrementing counts[H]
+new pairs
+["CH", "HB"]
+adding newPair - CH
+adding newPair - HB
+checking pair BH
+incrementing counts[H]
+deleting pair BH
+new pairs
+["BH", "HH"]
+adding newPair - BH
+adding newPair - HH
+checking pair HC
+incrementing counts[B]
+deleting pair HC
+new pairs
+["HB", "BC"]
+incrementing newPair - HB
+incrementing newPair - BC
+iter 2
+{"NB"=>3, "BC"=>3, "CN"=>2, "BB"=>3, "CB"=>1, "NC"=>1, "CC"=>1, "BN"=>1, "CH"=>1, "HB"=>2, "BH"=>1, "HH"=>1}
+{"N"=>4, "C"=>5, "B"=>9, "H"=>3}
+{"N"=>4, "C"=>5, "B"=>9, "H"=>3}
+6
+[9, 5, 4, 3]
+length 21
