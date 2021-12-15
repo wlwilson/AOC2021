@@ -1,8 +1,8 @@
 #!/usr/bin/ruby
 
 fname = 'inputc'
-fname = 'input'
 fname = 'input1'
+fname = 'input'
 
 dataSet=File.readlines(fname)
 #puts dataSet.inspect 
@@ -35,70 +35,37 @@ template.each do |e|
   end
 end
 puts counts.inspect
-puts ""
 
-iter=9
+iter=39
 for count in 0..iter
-  pairsPlus=Hash[]
+  currentPairs=pairs.clone()
   pairs.keys.each do |p|
-    #puts "checking pair #{p}"
-    #add singles to the counts
     if rules.keys.include? p
-      #pairs[p]=pairs[p]-1 if pairs[p]!=0
-      #if pairs[p]==0
-      #  puts "  !deleting pair #{p}"
-      #  pairs.delete(p)
-      #end
       if counts.keys.include? rules[p]
-        #puts "  incrementing counts[#{rules[p]}] by #{pairs[p]}"
-        #puts "  ---#{pairs[p]} pairs of #{p} already exist"
-        #counts[rules[p]]=counts[rules[p]]+1
-        #counts[rules[p]]=counts[rules[p]]+(pairs[p])
-        newChar=rules[p]
-        counts[newChar]=counts[newChar]+(pairs[p])
+        counts[rules[p]]=counts[rules[p]]+currentPairs[p]
       else
-        #puts "  setting counts[#{rules[p]}]=1"
         counts[rules[p]]=1
       end
       sp=p.split("")
       newPairs=[sp[0]+rules[p],rules[p]+sp[1]]
-      #puts "  -->new pairs #{newPairs.inspect}"
-      for j in 0..pairs[p]-1
       newPairs.each do |np|
-        if pairsPlus.keys.include? np
-          #puts "  ##incrementing newPair - #{np}"
-          pairsPlus[np]=pairsPlus[np]+1
+        if pairs.keys.include? np
+          pairs[np]=pairs[np]+currentPairs[p]
         else
-          #puts "  ##adding newPair - #{np}"
-          pairsPlus[np]=1
+          pairs[np]=currentPairs[p]
         end
       end
+      if pairs[p]>currentPairs[p]
+        pairs[p]=pairs[p]-currentPairs[p]
+      else
+        pairs.delete(p)
       end
-      #puts pairsPlus.inspect
-    else
-      #puts "pair #{p} doesn't add elements"
     end
   end
-  pairs=pairsPlus.clone
-  puts "iter #{count}"
-  puts pairs.inspect
-  puts counts.inspect
-  puts "length #{counts.values.sum}"
+  #puts pairs.inspect
+  #puts counts.inspect
 end
 
-puts counts.inspect
-#exit
-#
-#counts=Hash[]
-#template.each do |e|
-#  if counts.keys.include? e
-#    counts[e]=counts[e]+1
-#  else
-#    counts[e]=1
-#  end
-#end
-#puts template.join.inspect
-puts counts.values.sort.reverse.inspect
 puts "length #{counts.values.sum}"
 puts "Answer:"
 puts counts.values.sort.reverse[0] - counts.values.sort[0]
